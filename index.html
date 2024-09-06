@@ -8,7 +8,157 @@
   </head>
   <body>
     <div id="app">
-      <div class="loader"></div>
+      <div class="loader">
+        <header
+          class="flex items-center justify-between p-12 text-2xl bg-white shadow-md dark:bg-gray-800 transition-all duration-500"
+        >
+          <div class="w-[80%] mx-auto flex justify-between items-center">
+            <div
+              class="country__app flex items-center gap-2 p-4 cursor-pointer"
+            >
+              <img
+                id="country__app__logo"
+                class="w-11 h-11 text-red-500 rounded-full"
+                src="/img/planet-earth-light.jpg"
+                alt="planet"
+              />
+              <h1 class="text-xlg">Country App</h1>
+            </div>
+
+            <div
+              id="brightness"
+              class="flex items-center gap-2 p-4 cursor-pointer"
+            >
+              <img src="/img/sun.jpg" alt="sun" class="w-11 h-11" />
+              <p class="text-xlg">Light Mode</p>
+            </div>
+          </div>
+        </header>
+        <main class="h-full w-[80%] mx-auto">
+          <div
+            class="search__bar__container px-4 py-12 flex items-center justify-between"
+          >
+            <div
+              class="search__bar flex items-center rounded-3xl bg-white h-[5rem] w-[45%] shadow-md relative"
+            >
+              <input
+                class="w-full h-full bg-white pl-[4.5rem] border-none rounded-3xl text-lg dark:bg-gray-800 focus:outline-primary transition-all duration-500"
+                type="text"
+                placeholder="Search for a country..."
+                id="country__search"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-full w-12 absolute top-0 left-[2%]"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </div>
+            <div
+              class="continents__select bg-white rounded-2xl shadow-md px-3 py-4 dark:bg-gray-800"
+            >
+              <select
+                name="country__region"
+                id="country__region"
+                class="country__region text-lg focus:outline-none dark:bg-gray-800 transition-all duration-500"
+              >
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="All"
+                >
+                  All
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="Africa"
+                >
+                  Africa
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="Antarctic"
+                >
+                  Antarctica
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="Asia"
+                >
+                  Asia
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="Europe"
+                >
+                  Europe
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="North America"
+                >
+                  North America
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="South America"
+                >
+                  South America
+                </option>
+                <option
+                  class="dark:bg-gray-800 transition-all duration-500"
+                  value="Oceania"
+                >
+                  Oceania
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <ul
+            class="country__list p-4 list-none grid grid-cols-3 gap-3 bg-primary dark:bg-gray-900 transition-all duration-500"
+          ></ul>
+          <div class="rendered__country dark:bg-gray-900 hidden"></div>
+          <ul class="pageList flex p-4 justify-center items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 cursor-pointer previousPage"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+              />
+            </svg>
+            <div class="pageNumbers flex p-4 jutsify-center gap-2"></div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 cursor-pointer nextPage"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </ul>
+        </main>
+      </div>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
