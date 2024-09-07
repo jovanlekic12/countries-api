@@ -1,3 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 .loader {
   position: fixed;
   top: 0;
@@ -21,7 +31,7 @@
   width: 10rem;
   height: 10rem;
   border: 2rem solid #dddddd;
-  border-top-color: #31be31;
+  border-top-color: #8a8a8a;
   border-radius: 50%;
   animation: loading 0.75s ease infinite;
 }
@@ -33,4 +43,73 @@
   to {
     transform: rotate(1turn);
   }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 7rem 2rem;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.header div svg {
+  width: 10rem;
+  height: 10rem;
+}
+
+.box__shadow {
+  box-shadow: 0 4px 10px 0 rgba(143, 143, 143, 0.7);
+}
+
+main {
+  margin-top: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.search__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form {
+  display: flex;
+  padding: 2rem 4rem;
+  gap: 2rem;
+  border-radius: 2rem;
+  min-width: 35rem;
+}
+
+.form input {
+  border: 0;
+  font-size: 3rem;
+  padding: 1rem 2rem;
+}
+
+.form input:focus {
+  outline: 0;
+}
+
+.form input::placeholder {
+  color: #aaa;
+}
+
+.form svg {
+  width: 6rem;
+  height: 6rem;
+}
+
+.sort {
+  min-width: 20rem;
+  text-align: center;
+  font-size: 3rem;
+  border-radius: 2rem;
+  border: 0;
 }
