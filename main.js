@@ -1,41 +1,67 @@
 import "./style.css";
 
+const searchInput = document.querySelector(".search");
+
 window.addEventListener("load", function () {
   const loader = this.document.querySelector(".loader");
   loader.classList.add("loader-hidden");
 });
 
-class Countries {
+let searchInputValue = "";
+const baseUrl = `https://restcountries.com/v3.1/`;
+
+searchInput.addEventListener(
+  "input",
+  (event) => (searchInputValue = event.target.value)
+);
+
+class CountriesManager {
   constructor() {
-    this.countries = [];
-  }
-  addCountries(country) {
-    this.countries.push(country);
-  }
-  setCountries(countries) {
-    this.countries = countries;
+    this.allCountries = [];
+    this.activePage = 1;
+    this.activeCountries = [];
+    this.selectedCountry = null;
   }
 
-  getCountries() {
-    return this.countries;
+  setAllCountries(countries) {
+    this.allCountries = countries;
   }
 
-  getCountriesByAmount(input, amount = 24) {
-    const b = input * amount;
-    const a = b - amount;
-    const customArr = this.countries.slice(a, b);
-    return customArr;
+  getAllCountries() {
+    return this.allCountries;
   }
 
-  sortCountries() {
-    this.countries.sort((a, b) => {
-      return a.name.common.localeCompare(b.name.common);
-    });
+  resetSelectedCountry() {
+    this.selectedCountry = null;
   }
 
-  getCountry(countryName) {
-    return this.countries.find(
-      (country) => country.name.common === countryName
-    );
+  setSelectedCountry(country) {
+    this.selectedCountry = country;
+  }
+
+  getSelectedCountry() {
+    return this.selectedCountry;
+  }
+
+  setActivePage(pageNumber) {
+    this.activePage = pageNumber;
+  }
+
+  getActivePage() {
+    return this.activePage;
+  }
+
+  resetActivePage() {
+    this.activePage = 1;
+  }
+
+  setActiveCountries() {
+    this.activeCountries = this.allCountries[this.activePage - 1];
+  }
+
+  getActiveCountries() {
+    return this.activeCountries;
   }
 }
+
+const countriesManager = new CountriesManager();
