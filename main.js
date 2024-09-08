@@ -1,7 +1,7 @@
 import "./style.css";
 
 const searchInput = document.querySelector(".search");
-
+const pagination = document.querySelector(".pagination");
 window.addEventListener("load", function () {
   const loader = this.document.querySelector(".loader");
   loader.classList.add("loader-hidden");
@@ -62,6 +62,36 @@ class CountriesManager {
   getActiveCountries() {
     return this.activeCountries;
   }
+
+  paginateCountries(countries) {
+    const paginatedCountries = [];
+    const chunkSize = 20;
+    let pageNumber = 1;
+    pagination.innerHTML = "";
+
+    for (let i = 0; i < countries.length; i += chunkSize) {
+      paginatedCountries.push(countries.slice(i, i + chunkSize));
+      const html = `<li class="pagination-list-item item-${pageNumber}">${pageNumber}</li>`;
+      pagination.insertAdjacentHTML("beforeend", html);
+      pageNumber++;
+    }
+    pagination.querySelector(`.item-${this.getActivePage()}`);
+    return paginatedCountries;
+  }
 }
 
 const countriesManager = new CountriesManager();
+
+async function jovan() {
+  try {
+    const response = await fetch(baseUrl + "all");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+countriesManager.setAllCountries(countriesManager.paginateCountries(jovan()));
+
+console.log(countriesManager);
