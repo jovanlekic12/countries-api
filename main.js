@@ -5,6 +5,13 @@ const pagination = document.querySelector(".pagination");
 const paginationContainer = document.querySelector(".pagination__container");
 const countryList = document.querySelector(".grid-list");
 const sort = document.querySelector(".sort");
+const selectedCountry = document.querySelector(".selected-country");
+const selectedCountryFlag = document.querySelector(".selected-country-flag");
+const selectedCountryCapital = document.querySelector(".span-capital");
+const selectedCountryCurrency = document.querySelector(".span-currency");
+const selectedCountryLanguages = document.querySelector(".span-language");
+const selectedCountryPopulation = document.querySelector(".span-population");
+const selectedCountryName = document.querySelector(".span-name");
 window.addEventListener("load", function () {
   const loader = this.document.querySelector(".loader");
   loader.classList.add("loader-hidden");
@@ -96,6 +103,24 @@ async function factoryFetch(url) {
   } catch (error) {
     console.log(error);
   }
+}
+
+function displaySelectedCountry(
+  image,
+  capital,
+  currency,
+  language,
+  population,
+  name
+) {
+  selectedCountryFlag.src = image;
+  selectedCountryCapital.textContent = capital;
+  selectedCountryCurrency.textContent = currency;
+  selectedCountryLanguages.textContent = language;
+  selectedCountryPopulation.textContent = numeral(population).format("0,0");
+  selectedCountryName.textContent = name;
+  overlay.style.visibility = "visible";
+  selectedCountry.style.visibility = "visible";
 }
 
 function displayCountriesList(countries) {

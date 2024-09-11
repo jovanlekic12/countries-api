@@ -189,3 +189,54 @@ main {
 .selected__page {
   background-color: #8a8a8a;
 }
+
+.selected-country {
+  position: fixed;
+  height: 360px;
+  width: 880px;
+  background-color: rgb(196, 189, 181);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  visibility: hidden;
+  z-index: 2;
+  padding: 40px;
+  border-radius: 16px;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 0.5s;
+  visibility: hidden;
+}
+
+.selected-country-flag {
+  height: 100%;
+  width: 60%;
+}
+
+.country-info {
+  background-color: rgb(196, 189, 181);
+  width: 40%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.country-info > h2,
+p {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
