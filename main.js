@@ -142,10 +142,10 @@ function displayCountriesList(countries) {
     const html = `<li class="country-list-item box__shadow ${
       darkMode ? "dark" : ""
     }" data-name=${name[Object.keys(name)[0]].split(" ").join("-")}>
+    <img src=${image} class="list-flag-image">
                       <p class="list-country-name">${
                         name[Object.keys(name)[0]]
                       }</p>
-                      <img src=${image} class="list-flag-image">
                     </li>`;
     countryList.insertAdjacentHTML("beforeend", html);
   });
