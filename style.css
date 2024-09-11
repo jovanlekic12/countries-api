@@ -233,10 +233,11 @@ main {
   padding: 0 16px;
 }
 
-.country-info > h2,
+.country-info h2,
 p {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin: 0;
+  font-size: 1.8rem;
 }

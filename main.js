@@ -1,8 +1,8 @@
 import "./style.css";
 
 const searchInput = document.querySelector(".search");
+const searchForm = document.querySelector(".form");
 const pagination = document.querySelector(".pagination");
-const paginationContainer = document.querySelector(".pagination__container");
 const countryList = document.querySelector(".grid-list");
 const sort = document.querySelector(".sort");
 const selectedCountry = document.querySelector(".selected-country");
@@ -12,6 +12,7 @@ const selectedCountryCurrency = document.querySelector(".span-currency");
 const selectedCountryLanguages = document.querySelector(".span-language");
 const selectedCountryPopulation = document.querySelector(".span-population");
 const selectedCountryName = document.querySelector(".span-name");
+const overlay = document.querySelector(".overlay");
 window.addEventListener("load", function () {
   const loader = this.document.querySelector(".loader");
   loader.classList.add("loader-hidden");
@@ -117,7 +118,7 @@ function displaySelectedCountry(
   selectedCountryCapital.textContent = capital;
   selectedCountryCurrency.textContent = currency;
   selectedCountryLanguages.textContent = language;
-  selectedCountryPopulation.textContent = numeral(population).format("0,0");
+  selectedCountryPopulation.textContent = population;
   selectedCountryName.textContent = name;
   overlay.style.visibility = "visible";
   selectedCountry.style.visibility = "visible";
@@ -130,7 +131,11 @@ function displayCountriesList(countries) {
       flags: { png: image },
       name,
     } = country;
-    const html = `<li class="country-list-item box__shadow">
+    const html = `<li class="country-list-item box__shadow" data-name=${name[
+      Object.keys(name)[0]
+    ]
+      .split(" ")
+      .join("-")}>
                       <p class="list-country-name">${
                         name[Object.keys(name)[0]]
                       }</p>
@@ -186,6 +191,72 @@ sort.addEventListener("input", (event) => {
       displayCountriesList(countriesManager.getActiveCountries());
     })
     .catch((error) => console.log(error));
+});
+
+countryList.addEventListener("click", (event) => {
+  if (event.target.closest("li").getAttribute("data-name")) {
+    const url =
+      baseUrl +
+      `name/${event.target
+        .closest("li")
+        .getAttribute("data-name")
+        .split("-")
+        .join(" ")}?fullText=true`;
+    console.log(url, event.target.closest("li").getAttribute("data-name"));
+    factoryFetch(url)
+      .then((data) => {
+        countriesManager.setSelectedCountry(data[0]);
+        const {
+          flags: { png: image },
+          capital,
+          currencies,
+          languages,
+          population,
+          name,
+        } = countriesManager.getSelectedCountry();
+        displaySelectedCountry(
+          image,
+          capital,
+          currencies[Object.keys(currencies)[0]].name,
+          languages[Object.keys(languages)[0]],
+          population,
+          name[Object.keys(name)[0]]
+        );
+      })
+      .catch((error) => console.log(error));
+  }
+});
+
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const url = baseUrl + `name/${searchInputValue}?fullText=true`;
+  factoryFetch(url)
+    .then((data) => {
+      countriesManager.setSelectedCountry(data[0]);
+      const {
+        flags: { png: image },
+        capital,
+        currencies,
+        languages,
+        population,
+        name,
+      } = countriesManager.getSelectedCountry();
+      displaySelectedCountry(
+        image,
+        capital,
+        currencies[Object.keys(currencies)[0]].name,
+        languages[Object.keys(languages)],
+        population,
+        name[Object.keys(name)[0]]
+      );
+    })
+    .catch((error) => console.log(error));
+});
+
+overlay.addEventListener("click", () => {
+  overlay.style.visibility = "hidden";
+  selectedCountry.style.visibility = "hidden";
+  countriesManager.resetSelectedCountry();
 });
 
 console.log(countriesManager);
