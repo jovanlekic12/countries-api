@@ -1,5 +1,6 @@
 import "./style.css";
 
+const themeIcon = document.querySelector(".theme__icon");
 const searchInput = document.querySelector(".search");
 const searchForm = document.querySelector(".form");
 const pagination = document.querySelector(".pagination");
@@ -257,6 +258,15 @@ overlay.addEventListener("click", () => {
   overlay.style.visibility = "hidden";
   selectedCountry.style.visibility = "hidden";
   countriesManager.resetSelectedCountry();
+});
+
+themeIcon.addEventListener("click", function () {
+  const items = document.querySelectorAll(".box__shadow");
+  items.forEach((item) =>
+    item.classList.contains("dark")
+      ? item.classList.remove("dark")
+      : item.classList.add("dark")
+  );
 });
 
 console.log(countriesManager);
