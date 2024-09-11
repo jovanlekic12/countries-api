@@ -4,6 +4,7 @@ const themeIcon = document.querySelector(".theme__icon");
 const searchInput = document.querySelector(".search");
 const searchForm = document.querySelector(".form");
 const pagination = document.querySelector(".pagination");
+const paginationContainer = document.querySelector(".pagination__container");
 const countryList = document.querySelector(".grid-list");
 const sort = document.querySelector(".sort");
 const selectedCountry = document.querySelector(".selected-country");
@@ -19,6 +20,10 @@ window.addEventListener("load", function () {
   loader.classList.add("loader-hidden");
 });
 
+let darkMode = false;
+function toggleTheme() {
+  darkMode = !darkMode;
+}
 let searchInputValue = "";
 const baseUrl = `https://restcountries.com/v3.1/`;
 
@@ -83,7 +88,9 @@ class CountriesManager {
 
     for (let i = 0; i < countries.length; i += chunkSize) {
       paginatedCountries.push(countries.slice(i, i + chunkSize));
-      const html = `<li class="pagination__list__item item__${pageNumber}">${pageNumber}</li>`;
+      const html = `<li class="pagination__list__item item__${pageNumber}" style="color: ${
+        darkMode ? "white" : "black"
+      }">${pageNumber}</li>`;
       pagination.insertAdjacentHTML("beforeend", html);
       pageNumber++;
     }
@@ -132,11 +139,9 @@ function displayCountriesList(countries) {
       flags: { png: image },
       name,
     } = country;
-    const html = `<li class="country-list-item box__shadow" data-name=${name[
-      Object.keys(name)[0]
-    ]
-      .split(" ")
-      .join("-")}>
+    const html = `<li class="country-list-item box__shadow ${
+      darkMode ? "dark" : ""
+    }" data-name=${name[Object.keys(name)[0]].split(" ").join("-")}>
                       <p class="list-country-name">${
                         name[Object.keys(name)[0]]
                       }</p>
@@ -166,6 +171,43 @@ pagination.addEventListener("click", (event) => {
     displayCountriesList(countriesManager.getActiveCountries());
   }
 });
+
+paginationContainer.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("arrow__left") &&
+    countriesManager.getActivePage() > 1
+  ) {
+    pagination
+      .querySelector(`.item__${countriesManager.getActivePage()}`)
+      .classList.remove("selected__page");
+    countriesManager.setActivePage(
+      parseInt(countriesManager.getActivePage()) - 1
+    );
+    pagination
+      .querySelector(`.item__${countriesManager.getActivePage()}`)
+      .classList.add("selected__page");
+    countriesManager.setActiveCountries();
+    displayCountriesList(countriesManager.getActiveCountries());
+  }
+
+  if (
+    event.target.classList.contains("arrow__right") &&
+    countriesManager.getActivePage() < countriesManager.getAllCountries().length
+  ) {
+    pagination
+      .querySelector(`.item__${countriesManager.getActivePage()}`)
+      .classList.remove("selected__page");
+    countriesManager.setActivePage(
+      parseInt(countriesManager.getActivePage()) + 1
+    );
+    pagination
+      .querySelector(`.item__${countriesManager.getActivePage()}`)
+      .classList.add("selected__page");
+    countriesManager.setActiveCountries();
+    displayCountriesList(countriesManager.getActiveCountries());
+  }
+});
+
 sort.addEventListener("input", (event) => {
   if (event.target.value === "all") {
     const url = baseUrl + event.target.value;
@@ -261,11 +303,21 @@ overlay.addEventListener("click", () => {
 });
 
 themeIcon.addEventListener("click", function () {
+  toggleTheme();
+  const main = document.querySelector("main");
+  darkMode ? main.classList.add("black") : main.classList.remove("black");
+  darkMode
+    ? searchInput.classList.add("dark")
+    : searchInput.classList.remove("dark");
   const items = document.querySelectorAll(".box__shadow");
   items.forEach((item) =>
     item.classList.contains("dark")
       ? item.classList.remove("dark")
       : item.classList.add("dark")
+  );
+  const paginationItems = document.querySelectorAll(".pagination__list__item");
+  paginationItems.forEach((item) =>
+    darkMode ? (item.style.color = "white") : (item.style.color = "black")
   );
 });
 

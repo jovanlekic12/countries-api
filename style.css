@@ -68,15 +68,12 @@ html {
 }
 
 main {
-  margin-top: 10rem;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
+  padding: 5rem 20rem;
 }
 
 .search__container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .form {
@@ -151,9 +148,9 @@ main {
   gap: 40px;
   height: 80%;
   list-style: none;
-  /* width: 90%; */
+  width: 90%;
   padding: 0;
-  margin: 5rem 0;
+  margin: 5rem auto;
 }
 
 .country-list-item {
@@ -194,7 +191,7 @@ main {
   position: fixed;
   height: 360px;
   width: 880px;
-  background-color: rgb(196, 189, 181);
+  background-color: rgb(73, 82, 94);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -224,7 +221,7 @@ main {
 }
 
 .country-info {
-  background-color: rgb(196, 189, 181);
+  background-color: rgb(73, 82, 94);
   width: 40%;
   display: flex;
   align-items: center;
@@ -244,4 +241,13 @@ p {
 
 .theme__icon {
   cursor: pointer;
+}
+
+.dark {
+  background-color: rgb(31, 41, 55);
+  color: #fff;
+  transition: all 0.3s;
+}
+.black {
+  background-color: rgb(25, 34, 46);
 }
